@@ -429,6 +429,119 @@
                 font-size: 1.125rem !important;
             }
         }
+        
+        /* 代码框收缩功能样式 */
+        .code-container {
+            position: relative;
+        }
+        
+        .code-collapsed .mac-content {
+            max-height: 300px; /* 可自定义：收缩时的最大高度 */
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .code-collapsed .mac-content::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 60px;
+            background: linear-gradient(transparent, #1a202c);
+            pointer-events: none;
+        }
+        
+        .expand-toggle {
+            position: absolute;
+            bottom: 10px;
+            right: 15px;
+            z-index: 10;
+            padding: 6px 12px;
+            background: rgba(59, 130, 246, 0.9);
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 12px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        
+        .expand-toggle:hover {
+            background: rgba(59, 130, 246, 1);
+            transform: scale(1.05);
+        }
+        
+        /* 分页样式 */
+        .pagination {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 8px;
+            margin-top: 2rem;
+            flex-wrap: wrap;
+        }
+        
+        .pagination button {
+            min-width: 40px;
+            height: 40px;
+            border: 1px solid rgba(59, 130, 246, 0.2);
+            background: rgba(255, 255, 255, 0.8);
+            color: #374151;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-weight: 500;
+        }
+        
+        .dark .pagination button {
+            background: rgba(255, 255, 255, 0.1);
+            color: #e5e7eb;
+            border-color: rgba(255, 255, 255, 0.2);
+        }
+        
+        .pagination button:hover:not(.active):not(:disabled) {
+            background: rgba(59, 130, 246, 0.1);
+            border-color: rgba(59, 130, 246, 0.3);
+        }
+        
+        .pagination button.active {
+            background: #3B82F6;
+            color: white;
+            border-color: #3B82F6;
+            transform: scale(1.1);
+        }
+        
+        .pagination button:disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+        }
+        
+        .pagination input {
+            width: 60px;
+            height: 40px;
+            text-align: center;
+            border: 1px solid rgba(59, 130, 246, 0.2);
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.8);
+            color: #374151;
+        }
+        
+        .dark .pagination input {
+            background: rgba(255, 255, 255, 0.1);
+            color: #e5e7eb;
+            border-color: rgba(255, 255, 255, 0.2);
+        }
+        
+        .pagination .page-info {
+            font-size: 14px;
+            color: #6b7280;
+            margin: 0 10px;
+        }
+        
+        .dark .pagination .page-info {
+            color: #9ca3af;
+        }
     </style>
 </head>
 <body class="text-gray-800 dark:text-gray-100 transition-theme">
@@ -488,6 +601,10 @@
                     <span class="font-medium">首页</span>
                 </a>
                 <a href="#" class="flex items-center space-x-3 px-4 py-3 rounded-xl hover:bg-blue-50 dark:hover:bg-white/10 transition-all duration-100">
+                    <i class="fa fa-question-circle text-orange-500"></i>
+                    <span class="font-medium">帮助</span>
+                </a>
+                <a href="#" class="flex items-center space-x-3 px-4 py-3 rounded-xl hover:bg-blue-50 dark:hover:bg-white/10 transition-all duration-100">
                      <i class="fa fa-book text-secondary"></i>
                      <span class="font-medium">文档</span>
                  </a>
@@ -519,7 +636,7 @@
             <div class="mt-8 flex justify-center">
                 <div class="flex items-center space-x-3 px-6 py-3 neo-card">
                     <div class="w-3 h-3 bg-green-500 rounded-full animate-pulse"></div>
-                    <span class="text-sm font-semibold">共 6 个精选脚本</span>
+                    <span class="text-sm font-semibold">共 3 个精选脚本</span>
                 </div>
             </div>
         </section>
@@ -549,6 +666,11 @@
                 <p class="text-xl text-gray-600 dark:text-gray-400 font-medium">正在加载精彩内容...</p>
             </div>
         </section>
+        
+        <!-- 分页组件 -->
+        <div id="pagination-container" class="pagination" style="display: none;">
+            <!-- 分页按钮将通过JavaScript动态生成 -->
+        </div>
     </main>
 
     <!-- 页脚 -->
@@ -574,7 +696,7 @@
                 
                 <!-- 右侧链接图标 -->
                 <div class="flex items-center space-x-4">
-                    <a href="https://github.com/cooreenb/shelljbk" target="_blank" class="group w-14 h-14 flex items-center justify-center rounded-2xl bg-gradient-to-br from-black to-white-500 hover:from-gray-700 hover:to-gray-900 transition-all duration-150 shadow-lg hover:shadow-2xl hover:scale-110">
+                    <a href="https://github.com" target="_blank" class="group w-14 h-14 flex items-center justify-center rounded-2xl bg-gradient-to-br from-black to-white-500 hover:from-gray-700 hover:to-gray-900 transition-all duration-150 shadow-lg hover:shadow-2xl hover:scale-110">
                          <i class="iconcr cr-github-fill text-white text-xl group-hover:scale-110 transition-transform"></i>
                      </a>
                      <a href="mailto:contact@example.com" class="group w-14 h-14 flex items-center justify-center rounded-2xl bg-gradient-to-br from-blue-500 to-white-500 hover:from-blue-400 hover:to-blue-500 transition-all duration-150 shadow-lg hover:shadow-2xl hover:scale-110">
@@ -709,6 +831,22 @@
             }, 50);
         }
         
+        // ========== 配置参数 ==========
+        const CONFIG = {
+            // 代码收缩配置
+            CODE_COLLAPSE_LINES: 10,    // 可自定义：超过多少行代码自动收缩
+            CODE_COLLAPSE_HEIGHT: 300,  // 可自定义：收缩时的最大高度（像素）
+            
+            // 分页配置
+            SCRIPTS_PER_PAGE: 3,        // 可自定义：每页显示的脚本数量
+            MAX_PAGE_BUTTONS: 5,          // 可自定义：最多显示的页码按钮数量
+        };
+        
+        // 分页状态
+        let currentPage = 1;
+        let totalPages = 1;
+        let filteredScripts = [];
+        
         // 脚本数据（直接嵌入，无需外部文件）
         const scriptsData = [
             {
@@ -749,85 +887,63 @@
             }
         ];
         
-        // 加载并显示脚本数据
-        function loadScripts() {
+        // 加载并显示脚本数据（支持分页）
+        function loadScripts(searchTerm = '') {
+            // 筛选脚本
+            filteredScripts = scriptsData.filter(script => {
+                if (!searchTerm) return true;
+                const searchText = searchTerm.toLowerCase();
+                return script.title.toLowerCase().includes(searchText) || 
+                       script.description.toLowerCase().includes(searchText);
+            });
+            
+            // 计算总页数
+            totalPages = Math.ceil(filteredScripts.length / CONFIG.SCRIPTS_PER_PAGE);
+            if (currentPage > totalPages) currentPage = 1;
+            
+            // 获取当前页的脚本
+            const startIndex = (currentPage - 1) * CONFIG.SCRIPTS_PER_PAGE;
+            const endIndex = startIndex + CONFIG.SCRIPTS_PER_PAGE;
+            const currentScripts = filteredScripts.slice(startIndex, endIndex);
+            
             const scriptsContainer = document.getElementById('scripts-container');
+            
             try {
-                
                 // 清空加载状态
                 scriptsContainer.innerHTML = '';
                 
-                // 生成脚本卡片
-                scriptsData.forEach((script, index) => {
-                    const card = document.createElement('div');
-                    card.className = 'script-card neo-card overflow-hidden animate-fade-in';
-                    card.style.animationDelay = `${index * 0.1}s`;
-                    card.setAttribute('data-search', `${script.title.toLowerCase()} ${script.description.toLowerCase()}`);
-                    
-                    card.innerHTML = `
-                        <div class="p-8">
-                            <div class="flex items-center mb-6">
-                                <div class="w-12 h-12 rounded-2xl bg-gradient-to-br from-primary via-accent to-secondary flex items-center justify-center mr-4 shadow-lg">
-                                    <i class="fa fa-code text-white text-lg"></i>
-                                </div>
-                                <div>
-                                    <h3 class="text-2xl font-bold gradient-text">${script.title}</h3>
-                                    <div class="flex items-center mt-1">
-                                        <span class="text-sm text-gray-500 dark:text-gray-400">脚本 ID: ${script.id}</span>
-                                        <div class="w-2 h-2 bg-green-500 rounded-full ml-3 animate-pulse"></div>
-                                    </div>
-                                </div>
+                if (currentScripts.length === 0) {
+                    scriptsContainer.innerHTML = `
+                        <div class="col-span-full text-center py-20">
+                            <div class="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-gray-500/20 mb-6">
+                                <i class="fa fa-search text-gray-500 text-2xl"></i>
                             </div>
-                            <p class="text-gray-600 dark:text-gray-300 mb-8 text-lg leading-relaxed">${script.description}</p>
-                            
-                            <!-- Mac风格终端 -->
-                            <div class="mac-terminal">
-                                <div class="mac-header">
-                                    <div class="mac-buttons">
-                                        <div class="mac-button red"></div>
-                                        <div class="mac-button yellow"></div>
-                                        <div class="mac-button green"></div>
-                                    </div>
-                                    <div class="mac-title">script_${script.id}.sh</div>
-                                    <button class="copy-btn ml-auto px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white text-sm rounded-lg flex items-center transition-all duration-100 hover:scale-105 shadow-lg">
-                                        <i class="fa fa-copy mr-2"></i> 复制代码
-                                    </button>
-                                </div>
-                                <div class="mac-content">
-                                    <pre class="language-bash"><code>${escapeHtml(script.content)}</code></pre>
-                                </div>
-                            </div>
+                            <p class="text-xl text-gray-500 dark:text-gray-400 font-medium">
+                                ${searchTerm ? '未找到匹配的脚本' : '暂无脚本数据'}
+                            </p>
                         </div>
                     `;
-                    
+                    document.getElementById('pagination-container').style.display = 'none';
+                    return;
+                }
+                
+                // 生成脚本卡片
+                currentScripts.forEach((script, index) => {
+                    const card = createScriptCard(script, index);
                     scriptsContainer.appendChild(card);
-                    
-                    // 添加复制功能
-                    const copyBtn = card.querySelector('.copy-btn');
-                    const codeBlock = card.querySelector('code');
-                    
-                    copyBtn.addEventListener('click', () => {
-                        const textToCopy = codeBlock.textContent;
-                        navigator.clipboard.writeText(textToCopy).then(() => {
-                            const originalText = copyBtn.innerHTML;
-                            copyBtn.innerHTML = '<i class="fa fa-check mr-2"></i> 已复制';
-                            copyBtn.classList.remove('bg-blue-600', 'hover:bg-blue-700');
-                            copyBtn.classList.add('bg-green-600', 'hover:bg-green-700');
-                            
-                            setTimeout(() => {
-                                copyBtn.innerHTML = originalText;
-                                copyBtn.classList.remove('bg-green-600', 'hover:bg-green-700');
-                                copyBtn.classList.add('bg-blue-600', 'hover:bg-blue-700');
-                            }, 2000);
-                        });
-                    });
                 });
                 
-                // 初始化代码高亮
+                // 初始化代码高亮和收缩功能
                 Prism.highlightAll();
+                setTimeout(() => {
+                    initCodeCollapse();
+                }, 100);
+                
+                // 更新分页
+                updatePagination();
                 
             } catch (error) {
-                // 显示错误信息（理论上不会执行到这里，因为数据已内嵌）
+                // 显示错误信息
                 scriptsContainer.innerHTML = `
                     <div class="col-span-full text-center py-20">
                         <div class="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-red-500/20 mb-6">
@@ -839,7 +955,74 @@
                     </div>
                 `;
                 console.error('加载脚本时出错:', error);
+                document.getElementById('pagination-container').style.display = 'none';
             }
+        }
+        
+        // 创建脚本卡片
+        function createScriptCard(script, index) {
+            const card = document.createElement('div');
+            card.className = 'script-card neo-card overflow-hidden animate-fade-in';
+            card.style.animationDelay = `${index * 0.1}s`;
+            card.setAttribute('data-search', `${script.title.toLowerCase()} ${script.description.toLowerCase()}`);
+            
+            card.innerHTML = `
+                <div class="p-8">
+                    <div class="flex items-center mb-6">
+                        <div class="w-12 h-12 rounded-2xl bg-gradient-to-br from-primary via-accent to-secondary flex items-center justify-center mr-4 shadow-lg">
+                            <i class="fa fa-code text-white text-lg"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-2xl font-bold gradient-text">${script.title}</h3>
+                            <div class="flex items-center mt-1">
+                                <span class="text-sm text-gray-500 dark:text-gray-400">脚本 ID: ${script.id}</span>
+                                <div class="w-2 h-2 bg-green-500 rounded-full ml-3 animate-pulse"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="text-gray-600 dark:text-gray-300 mb-8 text-lg leading-relaxed">${script.description}</p>
+                    
+                    <!-- Mac风格终端 -->
+                    <div class="code-container mac-terminal">
+                        <div class="mac-header">
+                            <div class="mac-buttons">
+                                <div class="mac-button red"></div>
+                                <div class="mac-button yellow"></div>
+                                <div class="mac-button green"></div>
+                            </div>
+                            <div class="mac-title">script_${script.id}.sh</div>
+                            <button class="copy-btn ml-auto px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white text-sm rounded-lg flex items-center transition-all duration-100 hover:scale-105 shadow-lg">
+                                <i class="fa fa-copy mr-2"></i> 复制代码
+                            </button>
+                        </div>
+                        <div class="mac-content">
+                            <pre class="language-bash"><code>${escapeHtml(script.content)}</code></pre>
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            // 添加复制功能
+            const copyBtn = card.querySelector('.copy-btn');
+            const codeBlock = card.querySelector('code');
+            
+            copyBtn.addEventListener('click', () => {
+                const textToCopy = codeBlock.textContent;
+                navigator.clipboard.writeText(textToCopy).then(() => {
+                    const originalText = copyBtn.innerHTML;
+                    copyBtn.innerHTML = '<i class="fa fa-check mr-2"></i> 已复制';
+                    copyBtn.classList.remove('bg-blue-600', 'hover:bg-blue-700');
+                    copyBtn.classList.add('bg-green-600', 'hover:bg-green-700');
+                    
+                    setTimeout(() => {
+                        copyBtn.innerHTML = originalText;
+                        copyBtn.classList.remove('bg-green-600', 'hover:bg-green-700');
+                        copyBtn.classList.add('bg-blue-600', 'hover:bg-blue-700');
+                    }, 2000);
+                });
+            });
+            
+            return card;
         }
         
         // HTML转义函数，防止代码中的特殊字符被解析
@@ -852,30 +1035,171 @@
                 .replace(/'/g, "&#039;");
         }
         
+        // 代码收缩功能
+        function initCodeCollapse() {
+            document.querySelectorAll('.code-container').forEach(container => {
+                const codeElement = container.querySelector('code');
+                if (!codeElement) return;
+                
+                const codeText = codeElement.textContent || '';
+                const lineCount = codeText.split('\n').length;
+                
+                // 如果代码行数超过配置的行数，添加收缩功能
+                if (lineCount > CONFIG.CODE_COLLAPSE_LINES) {
+                    container.classList.add('code-collapsed');
+                    
+                    // 创建展开/收缩按钮
+                    const toggleBtn = document.createElement('button');
+                    toggleBtn.className = 'expand-toggle';
+                    toggleBtn.innerHTML = '<i class="fa fa-expand mr-1"></i>展开';
+                    
+                    // 按钮点击事件
+                    toggleBtn.addEventListener('click', () => {
+                        const isCollapsed = container.classList.contains('code-collapsed');
+                        
+                        if (isCollapsed) {
+                            container.classList.remove('code-collapsed');
+                            toggleBtn.innerHTML = '<i class="fa fa-compress mr-1"></i>收缩';
+                        } else {
+                            container.classList.add('code-collapsed');
+                            toggleBtn.innerHTML = '<i class="fa fa-expand mr-1"></i>展开';
+                        }
+                    });
+                    
+                    container.appendChild(toggleBtn);
+                }
+            });
+        }
+        
+        // 分页功能
+        function updatePagination() {
+            const paginationContainer = document.getElementById('pagination-container');
+            
+            if (totalPages <= 1) {
+                paginationContainer.style.display = 'none';
+                return;
+            }
+            
+            paginationContainer.style.display = 'flex';
+            paginationContainer.innerHTML = '';
+            
+            // 上一页按钮
+            const prevBtn = document.createElement('button');
+            prevBtn.innerHTML = '<i class="fa fa-chevron-left"></i>';
+            prevBtn.disabled = currentPage === 1;
+            prevBtn.addEventListener('click', () => {
+                if (currentPage > 1) {
+                    currentPage--;
+                    loadScripts(getCurrentSearchTerm());
+                }
+            });
+            paginationContainer.appendChild(prevBtn);
+            
+            // 计算显示的页码范围
+            const maxButtons = CONFIG.MAX_PAGE_BUTTONS;
+            let startPage = Math.max(1, currentPage - Math.floor(maxButtons / 2));
+            let endPage = Math.min(totalPages, startPage + maxButtons - 1);
+            
+            // 调整起始页
+            if (endPage - startPage + 1 < maxButtons) {
+                startPage = Math.max(1, endPage - maxButtons + 1);
+            }
+            
+            // 如果不是从第1页开始，显示第1页和省略号
+            if (startPage > 1) {
+                const firstBtn = createPageButton(1);
+                paginationContainer.appendChild(firstBtn);
+                
+                if (startPage > 2) {
+                    const ellipsis = document.createElement('span');
+                    ellipsis.textContent = '...';
+                    ellipsis.className = 'page-info';
+                    paginationContainer.appendChild(ellipsis);
+                }
+            }
+            
+            // 页码按钮
+            for (let i = startPage; i <= endPage; i++) {
+                const pageBtn = createPageButton(i);
+                paginationContainer.appendChild(pageBtn);
+            }
+            
+            // 如果不是到最后一页，显示省略号和最后一页
+            if (endPage < totalPages) {
+                if (endPage < totalPages - 1) {
+                    const ellipsis = document.createElement('span');
+                    ellipsis.textContent = '...';
+                    ellipsis.className = 'page-info';
+                    paginationContainer.appendChild(ellipsis);
+                }
+                
+                const lastBtn = createPageButton(totalPages);
+                paginationContainer.appendChild(lastBtn);
+            }
+            
+            // 下一页按钮
+            const nextBtn = document.createElement('button');
+            nextBtn.innerHTML = '<i class="fa fa-chevron-right"></i>';
+            nextBtn.disabled = currentPage === totalPages;
+            nextBtn.addEventListener('click', () => {
+                if (currentPage < totalPages) {
+                    currentPage++;
+                    loadScripts(getCurrentSearchTerm());
+                }
+            });
+            paginationContainer.appendChild(nextBtn);
+            
+            // 页面信息
+            const pageInfo = document.createElement('span');
+            pageInfo.className = 'page-info';
+            pageInfo.textContent = `${currentPage} / ${totalPages}`;
+            paginationContainer.appendChild(pageInfo);
+            
+            // 跳转输入框
+            const jumpInput = document.createElement('input');
+            jumpInput.type = 'number';
+            jumpInput.min = 1;
+            jumpInput.max = totalPages;
+            jumpInput.placeholder = '跳转';
+            jumpInput.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') {
+                    const page = parseInt(jumpInput.value);
+                    if (page >= 1 && page <= totalPages) {
+                        currentPage = page;
+                        loadScripts(getCurrentSearchTerm());
+                    }
+                    jumpInput.value = '';
+                }
+            });
+            paginationContainer.appendChild(jumpInput);
+        }
+        
+        // 创建页码按钮
+        function createPageButton(page) {
+            const btn = document.createElement('button');
+            btn.textContent = page;
+            btn.className = page === currentPage ? 'active' : '';
+            btn.addEventListener('click', () => {
+                currentPage = page;
+                loadScripts(getCurrentSearchTerm());
+            });
+            return btn;
+        }
+        
+        // 获取当前搜索词
+        function getCurrentSearchTerm() {
+            const searchInput = document.getElementById('search-input');
+            return searchInput ? searchInput.value.toLowerCase().trim() : '';
+        }
+        
         // 搜索功能
         function setupSearch() {
             const searchInput = document.getElementById('search-input');
             
             searchInput.addEventListener('input', (e) => {
                 const searchTerm = e.target.value.toLowerCase().trim();
-                const scriptCards = document.querySelectorAll('.script-card');
-                
-                scriptCards.forEach(card => {
-                    const cardText = card.getAttribute('data-search');
-                    if (cardText.includes(searchTerm)) {
-                        card.style.display = '';
-                        card.style.opacity = '1';
-                        card.style.transform = 'translateY(0)';
-                    } else {
-                        card.style.opacity = '0';
-                        card.style.transform = 'translateY(20px)';
-                        setTimeout(() => {
-                            if (card.style.opacity === '0') {
-                                card.style.display = 'none';
-                            }
-                        }, 300);
-                    }
-                });
+                currentPage = 1; // 搜索时重置到第一页
+                loadScripts(searchTerm);
             });
         }
         
