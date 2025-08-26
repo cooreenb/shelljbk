@@ -405,6 +405,30 @@
             -webkit-text-fill-color: transparent;
             background-clip: text;
         }
+        
+        /* 返回顶部按钮样式 */
+        #back-to-top {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        #back-to-top:hover {
+            transform: translateY(-2px) scale(1.1);
+            box-shadow: 0 20px 40px rgba(59, 130, 246, 0.3);
+        }
+        
+        /* 手机端适配 */
+        @media (max-width: 768px) {
+            #back-to-top {
+                bottom: 1rem !important;
+                right: 1rem !important;
+                width: 3rem !important;
+                height: 3rem !important;
+            }
+            
+            #back-to-top i {
+                font-size: 1.125rem !important;
+            }
+        }
     </style>
 </head>
 <body class="text-gray-800 dark:text-gray-100 transition-theme">
@@ -588,6 +612,11 @@
             </div>
         </div>
     </footer>
+
+    <!-- 返回顶部按钮 -->
+    <button id="back-to-top" class="fixed bottom-6 right-6 w-14 h-14 bg-white/90 dark:bg-gray-800/90 hover:bg-primary hover:dark:bg-primary text-gray-600 dark:text-gray-300 hover:text-white hover:dark:text-white rounded-full shadow-lg hover:shadow-xl transition-all duration-300 opacity-0 invisible translate-y-4 hover:scale-110 backdrop-blur-sm z-50">
+        <i class="fa fa-chevron-up text-xl"></i>
+    </button>
 
     <script>
         // 主题切换功能
@@ -871,7 +900,36 @@
             setTimeout(() => {
                 document.body.classList.add('loaded');
             }, 100);
+            
+            // 返回顶部按钮功能
+            setupBackToTop();
         });
+        
+        // 返回顶部按钮功能
+        function setupBackToTop() {
+            const backToTopBtn = document.getElementById('back-to-top');
+            
+            // 监听滚动事件
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 300) {
+                    // 显示按钮
+                    backToTopBtn.classList.remove('opacity-0', 'invisible', 'translate-y-4');
+                    backToTopBtn.classList.add('opacity-100', 'visible', 'translate-y-0');
+                } else {
+                    // 隐藏按钮
+                    backToTopBtn.classList.remove('opacity-100', 'visible', 'translate-y-0');
+                    backToTopBtn.classList.add('opacity-0', 'invisible', 'translate-y-4');
+                }
+            });
+            
+            // 点击返回顶部
+            backToTopBtn.addEventListener('click', () => {
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            });
+        }
     </script>
 </body>
 </html>
