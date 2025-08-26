@@ -1,0 +1,172 @@
+@font-face {
+  font-family: "iconcr"; /* Project id 5005320 */
+  src: url('iconfont.woff2?t=1755886424418') format('woff2'),
+       url('iconfont.woff?t=1755886424418') format('woff'),
+       url('iconfont.ttf?t=1755886424418') format('truetype'),
+       url('iconfont.svg?t=1755886424418#iconcr') format('svg');
+}
+
+.iconcr {
+  font-family: "iconcr" !important;
+  font-size: 16px;
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.cr-zuoshang:before {
+  content: "\e600";
+}
+
+.cr-xiangshang:before {
+  content: "\e601";
+}
+
+.cr-youshang:before {
+  content: "\e602";
+}
+
+.cr-xiangxia:before {
+  content: "\e603";
+}
+
+.cr-youxia:before {
+  content: "\e604";
+}
+
+.cr-xiangzuo:before {
+  content: "\e605";
+}
+
+.cr-xinlangweibo:before {
+  content: "\e606";
+}
+
+.cr-weixin:before {
+  content: "\e607";
+}
+
+.cr-yonghu:before {
+  content: "\e788";
+}
+
+.cr-wuxianwangluo:before {
+  content: "\e66c";
+}
+
+.cr-telegram:before {
+  content: "\eaf9";
+}
+
+.cr-wangluo:before {
+  content: "\e62e";
+}
+
+.cr-shang:before {
+  content: "\e63c";
+}
+
+.cr-jiaobenku:before {
+  content: "\e609";
+}
+
+.cr-discord:before {
+  content: "\e66e";
+}
+
+.cr-Gitlab:before {
+  content: "\e87f";
+}
+
+.cr-instagram:before {
+  content: "\e880";
+}
+
+.cr-QQ:before {
+  content: "\e882";
+}
+
+.cr-github-fill:before {
+  content: "\e885";
+}
+
+.cr-QQ-circle-fill:before {
+  content: "\e887";
+}
+
+.cr-zitidaima:before {
+  content: "\ec83";
+}
+
+.cr-arrow-:before {
+  content: "\e612";
+}
+
+.cr-arrow-1:before {
+  content: "\e613";
+}
+
+.cr-fangxiangjiantou-xiangyou:before {
+  content: "\e614";
+}
+
+.cr-fangxiangjiantou-xiangzuo:before {
+  content: "\e615";
+}
+
+.cr-tuite:before {
+  content: "\e652";
+}
+
+.cr-weibo:before {
+  content: "\e8bb";
+}
+
+.cr-bg-code:before {
+  content: "\e63b";
+}
+
+.cr-discord1:before {
+  content: "\e675";
+}
+
+.cr-daima:before {
+  content: "\e631";
+}
+
+.cr-tiktok:before {
+  content: "\ecdc";
+}
+
+.cr-telegram1:before {
+  content: "\e8c7";
+}
+
+.cr-shouye:before {
+  content: "\e608";
+}
+
+.cr-douyin:before {
+  content: "\e8db";
+}
+
+.cr-insert-link:before {
+  content: "\e63d";
+}
+
+.cr-jiaobenku1:before {
+  content: "\e733";
+}
+
+.cr-fangxiangjiantou-youxia:before {
+  content: "\e60a";
+}
+
+.cr-fangxiangjiantou-xia:before {
+  content: "\e60b";
+}
+
+.cr-bilibili-line:before {
+  content: "\ea96";
+}
+
